@@ -53,7 +53,7 @@
         <header class="hero" id="home">
             <div class="hero-copy">
                 <p class="eyebrow"><span></span> <span data-i18n="heroEyebrow">Informatics Student</span></p>
-                <h1>Tantri<br>Pradipta<br>Kusumawardani</h1>
+                <h1 class="hero-name"><span>Tantri</span><span>Pradipta</span><span>Kusumawardani</span></h1>
                 <p class="role" data-i18n="heroRole">Business Analyst Intern | Software Developer | Internet of Things | Data Analyst</p>
                 <p class="location" data-i18n="location">Bogor, Jawa Barat, Indonesia</p>
                 <p class="summary" data-i18n="heroSummary">
@@ -468,6 +468,43 @@
         document.addEventListener('mouseleave', () => {
             spiderCursor.classList.remove('is-following');
         });
+
+        const revealItems = document.querySelectorAll(
+            '.hero-copy, .hero-visual, .section, .section-heading, .card, .timeline-card, .organization-card, .project-card, .achievement-list > *, .contact-card'
+        );
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+            revealItems.forEach((item) => item.classList.add('is-visible'));
+        } else {
+            const motionTypes = ['bounce', 'merge', 'slide', 'roll'];
+            revealItems.forEach((item, index) => {
+                item.classList.add('reveal-on-scroll');
+                item.dataset.motion = motionTypes[index % motionTypes.length];
+                item.style.setProperty('--reveal-delay', `${(index % 3) * 90}ms`);
+            });
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const item = entry.target;
+                    if (entry.isIntersecting) {
+                        item.classList.remove('is-visible');
+                        void item.offsetWidth;
+                        item.classList.add('is-visible');
+                        if (item.classList.contains('hero-copy')) {
+                            const name = item.querySelector('.hero-name');
+                            name.classList.remove('is-popping');
+                            void name.offsetWidth;
+                            name.classList.add('is-popping');
+                        }
+                    } else {
+                        item.classList.remove('is-visible');
+                        if (item.classList.contains('hero-copy')) item.querySelector('.hero-name').classList.remove('is-popping');
+                    }
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+            revealItems.forEach((item) => revealObserver.observe(item));
+        }
 
         const watchedSections = document.querySelectorAll('#tentang, #keahlian, #proyek, #kontak');
         const sectionObserver = new IntersectionObserver((entries) => {
