@@ -10,52 +10,80 @@
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <nav class="site-nav" aria-label="Navigasi utama">
+<body data-theme="baby-pink">
+    <nav class="site-nav" aria-label="Navigasi utama" data-i18n-attr="aria-label:navAria">
         <a class="brand" href="#home">TantriPradipta</a>
         <div class="nav-links">
-            <a href="#tentang">Tentang</a>
-            <a href="#keahlian">Keahlian</a>
-            <a href="#proyek">Proyek</a>
-            <a href="#kontak">Kontak</a>
+            <a href="#tentang" data-section-link="tentang"><span class="nav-label" data-i18n="navAbout">Tentang</span><svg class="nav-spider-eyes" viewBox="0 0 240 100" aria-hidden="true"><path d="M22 12C25 74 57 91 103 68C78 45 47 30 22 12Z M218 12C215 74 183 91 137 68C162 45 193 30 218 12Z" /></svg></a>
+            <a href="#keahlian" data-section-link="keahlian"><span class="nav-label" data-i18n="navSkills">Keahlian</span><svg class="nav-spider-eyes" viewBox="0 0 240 100" aria-hidden="true"><path d="M22 12C25 74 57 91 103 68C78 45 47 30 22 12Z M218 12C215 74 183 91 137 68C162 45 193 30 218 12Z" /></svg></a>
+            <a href="#proyek" data-section-link="proyek"><span class="nav-label" data-i18n="navProjects">Proyek</span><svg class="nav-spider-eyes" viewBox="0 0 240 100" aria-hidden="true"><path d="M22 12C25 74 57 91 103 68C78 45 47 30 22 12Z M218 12C215 74 183 91 137 68C162 45 193 30 218 12Z" /></svg></a>
+            <a href="#kontak" data-section-link="kontak"><span class="nav-label" data-i18n="navContact">Kontak</span><svg class="nav-spider-eyes" viewBox="0 0 240 100" aria-hidden="true"><path d="M22 12C25 74 57 91 103 68C78 45 47 30 22 12Z M218 12C215 74 183 91 137 68C162 45 193 30 218 12Z" /></svg></a>
         </div>
-        <button class="theme-toggle" type="button" aria-label="Ganti mode warna">&#9680;</button>
+        <div class="nav-controls" aria-label="Pengaturan tampilan" data-i18n-attr="aria-label:settingsAria">
+            <div class="select-field">
+                <span data-i18n="languageLabel">Bahasa</span>
+                <div class="custom-select" data-custom-select="language">
+                    <button class="select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" data-i18n-attr="aria-label:languageAria">
+                        <span class="custom-select-value">ID</span><span aria-hidden="true">⌄</span>
+                    </button>
+                    <div class="select-menu" role="listbox" data-i18n-attr="aria-label:languageAria">
+                        <button type="button" role="option" data-value="id" aria-selected="true">ID</button>
+                        <button type="button" role="option" data-value="en" aria-selected="false">EN</button>
+                    </div>
+                </div>
+            </div>
+            <div class="select-field">
+                <span data-i18n="themeLabel">Tema</span>
+                <div class="custom-select" data-custom-select="theme">
+                    <button class="select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" data-i18n-attr="aria-label:themeAria">
+                        <span class="custom-select-value">Pink</span><span aria-hidden="true">⌄</span>
+                    </button>
+                    <div class="select-menu" role="listbox" data-i18n-attr="aria-label:themeAria">
+                        <button type="button" role="option" data-value="baby-pink" data-i18n="themePink" aria-selected="true">Pink</button>
+                        <button type="button" role="option" data-value="black" data-i18n="themeBlack" aria-selected="false">Hitam</button>
+                        <button type="button" role="option" data-value="white" data-i18n="themeWhite" aria-selected="false">Putih</button>
+                        <button type="button" role="option" data-value="baby-blue" data-i18n="themeBlue" aria-selected="false">Biru</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
 
     <main>
         <header class="hero" id="home">
             <div class="hero-copy">
-                <p class="eyebrow"><span></span> Informatics Student</p>
+                <p class="eyebrow"><span></span> <span data-i18n="heroEyebrow">Informatics Student</span></p>
                 <h1>Tantri Pradipta Kusumawardani</h1>
-                <p class="role">Business Analyst Intern | Software Developer | Internet of Things | Data Analyst</p>
-                <p class="summary">
+                <p class="role" data-i18n="heroRole">Business Analyst Intern | Software Developer | Internet of Things | Data Analyst</p>
+                <p class="location" data-i18n="location">Bogor, Jawa Barat, Indonesia</p>
+                <p class="summary" data-i18n="heroSummary">
                     Creating practical technology solutions through analysis, software development,
                     data exploration, and continuous learning.
                 </p>
                 <div class="hero-actions">
-                    <a class="button primary" href="#proyek">Lihat Proyek <span>&nearr;</span></a>
-                    <a class="button secondary" href="#kontak">Hubungi Saya <span>&nearr;</span></a>
+                    <a class="button primary" href="#proyek"><span data-i18n="viewProjects">Lihat Proyek</span> <span>&nearr;</span></a>
+                    <a class="button secondary" href="#kontak"><span data-i18n="contactMe">Hubungi Saya</span> <span>&nearr;</span></a>
                 </div>
             </div>
-            <div class="hero-visual" aria-label="Foto profil Tantri">
-                <img src="assets/foto.png" alt="Foto Tantri Pradipta Kusumawardani">
+            <div class="hero-visual" aria-label="Foto profil Tantri" data-i18n-attr="aria-label:photoAria">
+                <img src="assets/foto.png" alt="Foto Tantri Pradipta Kusumawardani" data-i18n-attr="alt:photoAlt">
             </div>
         </header>
 
         <section class="section about" id="tentang">
             <div class="section-heading">
-                <p class="eyebrow"><span></span> Tentang Saya</p>
-                <h2>Berfokus pada analisis, pengembangan aplikasi, dan solusi teknologi.</h2>
+                <p class="eyebrow"><span></span> <span data-i18n="aboutEyebrow">Tentang Saya</span></p>
+                <h2 data-i18n="aboutTitle">Berfokus pada analisis, pengembangan aplikasi, dan solusi teknologi.</h2>
             </div>
             <div class="about-text">
-                <p>
+                <p data-i18n="aboutTextOne">
                     Saya adalah mahasiswa Teknik Informatika di Jakarta Global University dengan
                     ketertarikan pada Software Development, Data Analysis, Business Analysis, dan
                     Internet of Things.
                 </p>
-                <p>
+                <p data-i18n="aboutTextTwo">
                     Melalui proyek seperti Scraping APK Grab, Peer-to-Peer Distributed Hash Table,
-                    dan Manajemen Kolaborasi Scrum, saya terus mengembangkan kemampuan analisis,
+                    dan Manajemen Kolaborasi Scrum, Membuat Chat-bot AI saya terus mengembangkan kemampuan analisis,
                     problem-solving, komunikasi, dan kerja tim.
                 </p>
             </div>
@@ -63,8 +91,8 @@
 
         <section class="section skills" id="keahlian">
             <div class="section-heading">
-                <p class="eyebrow"><span></span> Keahlian</p>
-                <h2>Kombinasi kemampuan teknis dan kolaboratif.</h2>
+                <p class="eyebrow"><span></span> <span data-i18n="skillsEyebrow">Keahlian</span></p>
+                <h2 data-i18n="skillsTitle">Kombinasi kemampuan teknis dan kolaboratif.</h2>
             </div>
             <div class="skill-grid">
                 <article class="card">
@@ -92,65 +120,92 @@
 
         <section class="section experience">
             <div class="section-heading">
-                <p class="eyebrow"><span></span> Pengalaman</p>
-                <h2>Belajar dari proyek, tim, dan proses nyata.</h2>
+                <p class="eyebrow"><span></span> <span data-i18n="experienceEyebrow">Pengalaman</span></p>
+                <h2 data-i18n="experienceTitle">Belajar dari proyek, tim, dan proses nyata.</h2>
             </div>
             <article class="timeline-card">
                 <div>
-                    <p class="label">Current Role</p>
+                    <p class="label" data-i18n="currentRoleLabel">Current Role</p>
                     <h3>Business Analyst Intern</h3>
                 </div>
                 <ul>
-                    <li>Menganalisis kebutuhan, proses, dan peluang perbaikan solusi.</li>
-                    <li>Berkolaborasi dengan anggota tim untuk menyusun dokumentasi dan laporan.</li>
-                    <li>Menghubungkan pemahaman teknis dengan kebutuhan pengguna dan bisnis.</li>
+                    <li data-i18n="experienceItemOne">Menganalisis kebutuhan, proses, dan peluang perbaikan solusi.</li>
+                    <li data-i18n="experienceItemTwo">Berkolaborasi dengan anggota tim untuk menyusun dokumentasi dan laporan.</li>
+                    <li data-i18n="experienceItemThree">Menghubungkan pemahaman teknis dengan kebutuhan pengguna dan bisnis.</li>
                 </ul>
             </article>
         </section>
 
+        <section class="section organizations" id="organisasi">
+            <div class="section-heading">
+                <p class="eyebrow"><span></span> <span data-i18n="organizationEyebrow">Organisasi & Dokumentasi</span></p>
+                <h2 data-i18n="organizationTitle">Belajar berkolaborasi melalui kegiatan kampus.</h2>
+            </div>
+            <div class="organization-grid">
+                <article class="organization-card">
+                    <div class="organization-icon" aria-hidden="true">⌁</div>
+                    <div>
+                        <p class="label">2024 — Present</p>
+                        <h3 data-i18n="organizationOneTitle">Anggota Pers — UKM Multimedia</h3>
+                        <p data-i18n="organizationOneText">Berpartisipasi dalam aktivitas UKM Multimedia dan mengembangkan komunikasi, kerja sama, serta keterlibatan aktif dalam organisasi kampus.</p>
+                        <p class="documentation" data-i18n="organizationOneDocumentation">Dokumentasi: keterlibatan aktivitas dan kolaborasi tim UKM Multimedia.</p>
+                    </div>
+                </article>
+                <article class="organization-card">
+                    <div class="organization-icon" aria-hidden="true">◉</div>
+                    <div>
+                        <p class="label">2026</p>
+                        <h3 data-i18n="organizationTwoTitle">Panitia Pelantikan Ormawa — Divisi Media</h3>
+                        <p data-i18n="organizationTwoText">Melakukan dokumentasi foto dan video, pengarsipan materi publikasi, serta koordinasi kebutuhan dokumentasi selama kegiatan berlangsung.</p>
+                        <p class="documentation" data-i18n="organizationTwoDocumentation">Dokumentasi: foto, video, dan arsip publikasi kegiatan organisasi mahasiswa.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
         <section class="section projects" id="proyek">
             <div class="section-heading">
-                <p class="eyebrow"><span></span> Proyek</p>
-                <h2>Beberapa eksplorasi teknologi yang pernah dikerjakan.</h2>
+                <p class="eyebrow"><span></span> <span data-i18n="projectsEyebrow">Proyek</span></p>
+                <h2 data-i18n="projectsTitle">Beberapa eksplorasi teknologi yang pernah dikerjakan.</h2>
             </div>
             <div class="project-grid">
                 <a class="project-card" href="https://github.com/Tantripra/SCRAPING_APK_GRAB" target="_blank" rel="noreferrer">
                     <p class="label">Data Scraping</p>
                     <h3>Scraping APK Grab</h3>
-                    <p>Proyek scraping untuk mengumpulkan dan mengolah data aplikasi Grab sebagai bahan analisis.</p>
-                    <span class="project-link">Lihat di GitHub &nearr;</span>
+                    <p data-i18n="projectOneText">Proyek scraping untuk mengumpulkan dan mengolah data aplikasi Grab sebagai bahan analisis.</p>
+                    <span class="project-link"><span data-i18n="githubLink">Lihat di GitHub</span> &nearr;</span>
                 </a>
                 <a class="project-card" href="https://github.com/Tantripra/P2P_Distributed_Hash_Table" target="_blank" rel="noreferrer">
                     <p class="label">Java</p>
                     <h3>P2P Distributed Hash Table</h3>
-                    <p>Aplikasi Distributed Hash Table untuk memahami konsep jaringan peer-to-peer.</p>
-                    <span class="project-link">Lihat di GitHub &nearr;</span>
+                    <p data-i18n="projectTwoText">Aplikasi Distributed Hash Table untuk memahami konsep jaringan peer-to-peer.</p>
+                    <span class="project-link"><span data-i18n="githubLink">Lihat di GitHub</span> &nearr;</span>
                 </a>
                 <a class="project-card" href="https://github.com/Tantripra/Manajemen_Kolaborasi_Scrum" target="_blank" rel="noreferrer">
                     <p class="label">Scrum</p>
                     <h3>Manajemen Kolaborasi Scrum</h3>
-                    <p>Proyek manajemen kolaborasi berbasis Scrum untuk mendukung pengelolaan tugas dan kerja tim.</p>
-                    <span class="project-link">Lihat di GitHub &nearr;</span>
+                    <p data-i18n="projectThreeText">Proyek manajemen kolaborasi berbasis Scrum untuk mendukung pengelolaan tugas dan kerja tim.</p>
+                    <span class="project-link"><span data-i18n="githubLink">Lihat di GitHub</span> &nearr;</span>
                 </a>
             </div>
         </section>
 
         <section class="section achievements">
             <div class="section-heading">
-                <p class="eyebrow"><span></span> Achievement</p>
-                <h2>Ruang untuk pencapaian, sertifikasi, dan publikasi.</h2>
+                <p class="eyebrow"><span></span> <span data-i18n="achievementEyebrow">Achievement</span></p>
+                <h2 data-i18n="achievementTitle">Ruang untuk pencapaian, sertifikasi, dan publikasi.</h2>
             </div>
             <div class="achievement-list">
-                <span>Sertifikasi Programming</span>
-                <span>Kompetisi Teknologi</span>
-                <span>Publikasi Penelitian</span>
+                <span data-i18n="achievementOne">Sertifikasi Programming</span>
+                <span data-i18n="achievementTwo">Kompetisi Teknologi</span>
+                <span data-i18n="achievementThree">Publikasi Penelitian</span>
             </div>
         </section>
 
         <section class="section contact-section" id="kontak">
-            <p class="eyebrow center"><span></span> Tersedia untuk Diskusi</p>
-            <h2>Ada project atau ide?</h2>
-            <p class="contact-lead">
+            <p class="eyebrow center"><span></span> <span data-i18n="contactEyebrow">Tersedia untuk Diskusi</span></p>
+            <h2 data-i18n="contactTitle">Ada project atau ide?</h2>
+            <p class="contact-lead" data-i18n="contactLead">
                 Terbuka untuk kolaborasi, peluang magang, diskusi teknologi, atau proyek yang
                 membutuhkan analisis dan pengembangan solusi.
             </p>
@@ -191,16 +246,240 @@
         </section>
     </main>
 
+    <div class="spider-girl" aria-hidden="true">
+        <svg viewBox="10 26 140 118" role="presentation" focusable="false">
+            <g class="spider-girl-character">
+                <path class="spider-leg" d="M61 60Q45 56 43 43Q42 35 33 31 M60 69Q45 71 36 61Q31 55 21 56 M64 79Q49 87 45 101Q42 110 33 114 M70 84Q62 98 65 111Q67 120 61 128 M99 60Q115 56 117 43Q118 35 127 31 M100 69Q115 71 124 61Q129 55 139 56 M96 79Q111 87 115 101Q118 110 127 114 M90 84Q98 98 95 111Q93 120 99 128" />
+                <circle class="spider-body" cx="80" cy="56" r="23" />
+                <path class="spider-head" d="M72 74Q80 68 88 74L92 93Q80 104 68 93Z" />
+            </g>
+        </svg>
+    </div>
+
     <footer>
         <p>&copy; 2026 Tantri Pradipta Kusumawardani</p>
     </footer>
 
     <script>
-        const themeButton = document.querySelector('.theme-toggle');
+        const translations = {
+            id: {
+                navAria: 'Navigasi utama',
+                settingsAria: 'Pengaturan tampilan',
+                languageAria: 'Pilih bahasa',
+                themeAria: 'Pilih tema',
+                languageLabel: 'Bahasa',
+                themeLabel: 'Tema',
+                themePink: 'Pink',
+                themeBlack: 'Hitam',
+                themeWhite: 'Putih',
+                themeBlue: 'Biru',
+                navAbout: 'Tentang',
+                navSkills: 'Keahlian',
+                navProjects: 'Proyek',
+                navContact: 'Kontak',
+                heroEyebrow: 'Mahasiswa Informatika',
+                heroRole: 'Business Analyst Intern | Software Developer | Internet of Things | Data Analyst',
+                location: 'Kabupaten Bogor, Jawa Barat, Indonesia',
+                heroSummary: 'Membuat solusi teknologi praktis melalui analisis, pengembangan perangkat lunak, eksplorasi data, dan pembelajaran berkelanjutan.',
+                viewProjects: 'Lihat Proyek',
+                contactMe: 'Hubungi Saya',
+                photoAria: 'Foto profil Tantri',
+                photoAlt: 'Foto Tantri Pradipta Kusumawardani',
+                aboutEyebrow: 'Tentang Saya',
+                aboutTitle: 'Berfokus pada analisis, pengembangan aplikasi, dan solusi teknologi.',
+                aboutTextOne: 'Saya adalah mahasiswa Teknik Informatika di Jakarta Global University dengan ketertarikan pada Software Development, Data Analysis, Business Analysis, dan Internet of Things.',
+                aboutTextTwo: 'Melalui proyek seperti Scraping APK Grab, Peer-to-Peer Distributed Hash Table, dan Manajemen Kolaborasi Scrum, saya terus mengembangkan kemampuan analisis, problem-solving, komunikasi, dan kerja tim.',
+                skillsEyebrow: 'Keahlian',
+                skillsTitle: 'Kombinasi kemampuan teknis dan kolaboratif.',
+                experienceEyebrow: 'Pengalaman',
+                experienceTitle: 'Belajar dari proyek, tim, dan proses nyata.',
+                currentRoleLabel: 'Peran Saat Ini',
+                experienceItemOne: 'Menganalisis kebutuhan, proses, dan peluang perbaikan solusi.',
+                experienceItemTwo: 'Berkolaborasi dengan anggota tim untuk menyusun dokumentasi dan laporan.',
+                experienceItemThree: 'Menghubungkan pemahaman teknis dengan kebutuhan pengguna dan bisnis.',
+                organizationEyebrow: 'Organisasi & Dokumentasi',
+                organizationTitle: 'Belajar berkolaborasi melalui kegiatan kampus.',
+                organizationOneTitle: 'Anggota Pers — UKM Multimedia',
+                organizationOneText: 'Berpartisipasi dalam aktivitas UKM Multimedia dan mengembangkan komunikasi, kerja sama, serta keterlibatan aktif dalam organisasi kampus.',
+                organizationOneDocumentation: 'Dokumentasi: keterlibatan aktivitas dan kolaborasi tim UKM Multimedia.',
+                organizationTwoTitle: 'Panitia Pelantikan Ormawa — Divisi Media',
+                organizationTwoText: 'Melakukan dokumentasi foto dan video, pengarsipan materi publikasi, serta koordinasi kebutuhan dokumentasi selama kegiatan berlangsung.',
+                organizationTwoDocumentation: 'Dokumentasi: foto, video, dan arsip publikasi kegiatan organisasi mahasiswa.',
+                projectsEyebrow: 'Proyek',
+                projectsTitle: 'Beberapa eksplorasi teknologi yang pernah dikerjakan.',
+                projectOneText: 'Proyek scraping untuk mengumpulkan dan mengolah data aplikasi Grab sebagai bahan analisis.',
+                projectTwoText: 'Aplikasi Distributed Hash Table untuk memahami konsep jaringan peer-to-peer.',
+                projectThreeText: 'Proyek manajemen kolaborasi berbasis Scrum untuk mendukung pengelolaan tugas dan kerja tim.',
+                githubLink: 'Lihat di GitHub',
+                achievementEyebrow: 'Pencapaian',
+                achievementTitle: 'Ruang untuk pencapaian, sertifikasi, dan publikasi.',
+                achievementOne: 'Sertifikasi Programming',
+                achievementTwo: 'Kompetisi Teknologi',
+                achievementThree: 'Publikasi Penelitian',
+                contactEyebrow: 'Tersedia untuk Diskusi',
+                contactTitle: 'Ada project atau ide?',
+                contactLead: 'Terbuka untuk kolaborasi, peluang magang, diskusi teknologi, atau proyek yang membutuhkan analisis dan pengembangan solusi.'
+            },
+            en: {
+                navAria: 'Main navigation',
+                settingsAria: 'Display settings',
+                languageAria: 'Choose language',
+                themeAria: 'Choose theme',
+                languageLabel: 'Language',
+                themeLabel: 'Theme',
+                themePink: 'Pink',
+                themeBlack: 'Black',
+                themeWhite: 'White',
+                themeBlue: 'Blue',
+                navAbout: 'About',
+                navSkills: 'Skills',
+                navProjects: 'Projects',
+                navContact: 'Contact',
+                heroEyebrow: 'Informatics Student',
+                heroRole: 'Business Analyst Intern | Software Developer | Internet of Things | Data Analyst',
+                location: 'Bogor Regency, West Java, Indonesia',
+                heroSummary: 'Creating practical technology solutions through analysis, software development, data exploration, and continuous learning.',
+                viewProjects: 'View Projects',
+                contactMe: 'Contact Me',
+                photoAria: 'Tantri profile photo',
+                photoAlt: 'Photo of Tantri Pradipta Kusumawardani',
+                aboutEyebrow: 'About Me',
+                aboutTitle: 'Focused on analysis, application development, and technology solutions.',
+                aboutTextOne: 'I am an Informatics Engineering student at Jakarta Global University with interests in Software Development, Data Analysis, Business Analysis, and Internet of Things.',
+                aboutTextTwo: 'Through projects such as Grab APK Scraping, Peer-to-Peer Distributed Hash Table, and Scrum Collaboration Management, I continue developing analytical, problem-solving, communication, and teamwork skills.',
+                skillsEyebrow: 'Skills',
+                skillsTitle: 'A combination of technical and collaborative abilities.',
+                experienceEyebrow: 'Experience',
+                experienceTitle: 'Learning from projects, teams, and real processes.',
+                currentRoleLabel: 'Current Role',
+                experienceItemOne: 'Analyzing needs, processes, and opportunities for solution improvement.',
+                experienceItemTwo: 'Collaborating with team members to prepare documentation and reports.',
+                experienceItemThree: 'Connecting technical understanding with user and business needs.',
+                organizationEyebrow: 'Organization & Documentation',
+                organizationTitle: 'Learning to collaborate through campus activities.',
+                organizationOneTitle: 'Press Member — Multimedia Student Activity Unit',
+                organizationOneText: 'Participating in Multimedia Student Activity Unit activities while developing communication, teamwork, and active campus organization involvement.',
+                organizationOneDocumentation: 'Documentation: activity involvement and team collaboration in the Multimedia Student Activity Unit.',
+                organizationTwoTitle: 'Student Organization Inauguration Committee — Media Division',
+                organizationTwoText: 'Documenting photos and videos, archiving publication materials, and coordinating documentation needs throughout the event.',
+                organizationTwoDocumentation: 'Documentation: photos, videos, and publication archives from student organization activities.',
+                projectsEyebrow: 'Projects',
+                projectsTitle: 'A few technology explorations I have worked on.',
+                projectOneText: 'A scraping project to collect and process Grab application data for analysis.',
+                projectTwoText: 'A Distributed Hash Table application for understanding peer-to-peer networking concepts.',
+                projectThreeText: 'A Scrum-based collaboration management project to support task and teamwork management.',
+                githubLink: 'View on GitHub',
+                achievementEyebrow: 'Achievement',
+                achievementTitle: 'Space for achievements, certifications, and publications.',
+                achievementOne: 'Programming Certification',
+                achievementTwo: 'Technology Competition',
+                achievementThree: 'Research Publication',
+                contactEyebrow: 'Available for Discussion',
+                contactTitle: 'Have a project or idea?',
+                contactLead: 'Open to collaboration, internship opportunities, technology discussions, or projects that need analysis and solution development.'
+            }
+        };
 
-        themeButton.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
+        const applyLanguage = (language) => {
+            const dictionary = translations[language] || translations.id;
+            document.documentElement.lang = language;
+
+            document.querySelectorAll('[data-i18n]').forEach((element) => {
+                element.textContent = dictionary[element.dataset.i18n];
+            });
+
+            document.querySelectorAll('[data-i18n-attr]').forEach((element) => {
+                element.dataset.i18nAttr.split(',').forEach((pair) => {
+                    const [attribute, key] = pair.split(':');
+                    element.setAttribute(attribute.trim(), dictionary[key.trim()]);
+                });
+            });
+
+            localStorage.setItem('portfolio-language', language);
+            document.querySelector('[data-custom-select="language"] .custom-select-value').textContent = language.toUpperCase();
+            document.querySelectorAll('[data-custom-select="language"] [role="option"]').forEach((option) => {
+                option.setAttribute('aria-selected', String(option.dataset.value === language));
+            });
+        };
+
+        const applyTheme = (theme) => {
+            document.body.dataset.theme = theme;
+            localStorage.setItem('portfolio-theme-v2', theme);
+            const selectedOption = document.querySelector(`[data-custom-select="theme"] [data-value="${theme}"]`);
+            document.querySelector('[data-custom-select="theme"] .custom-select-value').textContent = selectedOption.textContent;
+            document.querySelectorAll('[data-custom-select="theme"] [role="option"]').forEach((option) => {
+                option.setAttribute('aria-selected', String(option.dataset.value === theme));
+            });
+        };
+
+        const savedLanguage = localStorage.getItem('portfolio-language') || 'id';
+        const availableThemes = ['baby-pink', 'black', 'white', 'baby-blue'];
+        const storedTheme = localStorage.getItem('portfolio-theme-v2');
+        const savedTheme = availableThemes.includes(storedTheme) ? storedTheme : 'baby-pink';
+
+        applyLanguage(savedLanguage);
+        applyTheme(savedTheme);
+
+        const closeCustomSelects = () => {
+            document.querySelectorAll('.custom-select.is-open').forEach((select) => {
+                select.classList.remove('is-open');
+                select.querySelector('.select-trigger').setAttribute('aria-expanded', 'false');
+            });
+        };
+
+        document.querySelectorAll('.custom-select').forEach((select) => {
+            const trigger = select.querySelector('.select-trigger');
+            const options = select.querySelectorAll('[role="option"]');
+
+            trigger.addEventListener('click', () => {
+                const isOpen = select.classList.contains('is-open');
+                closeCustomSelects();
+                if (!isOpen) {
+                    select.classList.add('is-open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            options.forEach((option) => {
+                option.addEventListener('click', () => {
+                    options.forEach((item) => item.setAttribute('aria-selected', 'false'));
+                    option.setAttribute('aria-selected', 'true');
+                    if (select.dataset.customSelect === 'language') applyLanguage(option.dataset.value);
+                    if (select.dataset.customSelect === 'theme') applyTheme(option.dataset.value);
+                    closeCustomSelects();
+                });
+            });
         });
+
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.custom-select')) closeCustomSelects();
+        });
+
+        const spiderCursor = document.querySelector('.spider-girl');
+
+        window.addEventListener('pointermove', (event) => {
+            if (event.pointerType === 'touch') return;
+
+            spiderCursor.style.setProperty('--spider-x', `${event.clientX}px`);
+            spiderCursor.style.setProperty('--spider-y', `${event.clientY}px`);
+            spiderCursor.classList.add('is-following');
+        });
+
+        document.addEventListener('mouseleave', () => {
+            spiderCursor.classList.remove('is-following');
+        });
+
+        const watchedSections = document.querySelectorAll('#tentang, #keahlian, #proyek, #kontak');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+
+                document.querySelectorAll('[data-section-link]').forEach((link) => link.classList.remove('is-active'));
+                document.querySelector(`[data-section-link="${entry.target.id}"]`)?.classList.add('is-active');
+            });
+        }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+
+        watchedSections.forEach((section) => sectionObserver.observe(section));
     </script>
 </body>
 </html>
