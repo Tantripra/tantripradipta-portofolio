@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="hero-visual" aria-label="Foto profil Tantri" data-i18n-attr="aria-label:photoAria">
-                <img src="assets/foto.png" alt="Foto Tantri Pradipta Kusumawardani" data-i18n-attr="alt:photoAlt">
+                <img src="assets/FotoAku.png" alt="Foto Tantri Pradipta Kusumawardani" data-i18n-attr="alt:photoAlt">
             </div>
         </header>
 
@@ -477,6 +477,15 @@
             revealItems.forEach((item) => item.classList.add('is-visible'));
         } else {
             const motionTypes = ['bounce', 'merge', 'slide', 'roll'];
+            let previousScrollY = window.scrollY;
+            let scrollDirection = 'down';
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                scrollDirection = currentScrollY < previousScrollY ? 'up' : 'down';
+                previousScrollY = currentScrollY;
+            }, { passive: true });
+
             revealItems.forEach((item, index) => {
                 item.classList.add('reveal-on-scroll');
                 item.dataset.motion = motionTypes[index % motionTypes.length];
@@ -487,17 +496,21 @@
                 entries.forEach((entry) => {
                     const item = entry.target;
                     if (entry.isIntersecting) {
-                        item.classList.remove('is-visible');
-                        void item.offsetWidth;
-                        item.classList.add('is-visible');
-                        if (item.classList.contains('hero-copy')) {
+                        if (scrollDirection === 'up') {
+                            item.classList.add('is-visible', 'is-upward');
+                        } else {
+                            item.classList.remove('is-visible', 'is-upward');
+                            void item.offsetWidth;
+                            item.classList.add('is-visible');
+                        }
+                        if (scrollDirection === 'down' && item.classList.contains('hero-copy')) {
                             const name = item.querySelector('.hero-name');
                             name.classList.remove('is-popping');
                             void name.offsetWidth;
                             name.classList.add('is-popping');
                         }
-                    } else {
-                        item.classList.remove('is-visible');
+                    } else if (scrollDirection === 'down') {
+                        item.classList.remove('is-visible', 'is-upward');
                         if (item.classList.contains('hero-copy')) item.querySelector('.hero-name').classList.remove('is-popping');
                     }
                 });
