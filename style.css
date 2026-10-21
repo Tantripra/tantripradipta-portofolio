@@ -182,6 +182,10 @@ ul {
     gap: 12px;
 }
 
+.nav-main {
+    display: contents;
+}
+
 .nav-links a {
     min-width: 96px;
     padding: 12px 18px;
@@ -417,7 +421,7 @@ h1 {
 }
 
 .location::before {
-    content: "⌖";
+    content: "âŒ–";
     color: var(--accent);
     font-size: 1.15rem;
 }
@@ -484,10 +488,10 @@ h1 {
     z-index: 0;
     border-radius: inherit;
     background-color: var(--accent);
-    -webkit-mask-image: url("assets/BackgroundFoto.png");
+    -webkit-mask-image: url("../assets/BackgroundFoto.png");
     -webkit-mask-size: cover;
     -webkit-mask-position: center;
-    mask-image: url("assets/BackgroundFoto.png");
+    mask-image: url("../assets/BackgroundFoto.png");
     mask-mode: luminance;
     mask-size: cover;
     mask-position: center;
@@ -637,6 +641,17 @@ h1 {
     grid-template-columns: 0.7fr 1.3fr;
     gap: 28px;
     padding: 30px;
+}
+
+.experience-list {
+    display: grid;
+    gap: 18px;
+}
+
+.experience-place {
+    margin-top: 8px;
+    color: var(--muted);
+    font-style: italic;
 }
 
 .timeline-card ul {
@@ -1003,8 +1018,26 @@ footer {
         width: calc(100% - 20px);
         top: 10px;
         margin-top: 10px;
-        padding: 12px;
-        border-radius: 999px;
+        padding: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+
+    .nav-main {
+        display: grid;
+        gap: 12px;
+        padding: 16px 14px 12px;
+        background: var(--nav-bg);
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
     }
 
     .brand {
@@ -1013,6 +1046,8 @@ footer {
 
     .nav-links {
         gap: 4px;
+        width: 100%;
+        justify-content: space-between;
     }
 
     .nav-links a {
@@ -1021,10 +1056,13 @@ footer {
     }
 
     .nav-controls {
-        grid-column: 1 / -1;
-        order: 4;
         width: 100%;
         justify-content: stretch;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface-soft);
+        box-shadow: var(--shadow);
     }
 
     .select-field {
