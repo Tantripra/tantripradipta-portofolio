@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <meta property="og:url" content="https://tantripradipta.my.id/">
     <meta property="og:title" content="Tantri Pradipta Kusumawardani - Portofolio">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css?v=20261025-2">
 </head>
 <body data-theme="baby-pink">
     <nav class="site-nav" aria-label="Navigasi utama" data-i18n-attr="aria-label:navAria">
@@ -285,6 +285,37 @@
                 </a>
             </div>
         </section>
+
+        <section class="section comments-section" id="komentar">
+            <div class="section-heading">
+                <p class="eyebrow"><span></span> <span data-i18n="commentsEyebrow">Buku Tamu</span></p>
+                <h2 data-i18n="commentsTitle">Tinggalkan komentar</h2>
+            </div>
+            <p class="comment-demo-notice" data-i18n="commentsDemoNotice">
+                Komentar akan langsung terlihat oleh semua pengunjung.
+            </p>
+            <form class="comment-form" id="comment-form">
+                <div class="comment-field">
+                    <label for="comment-name" data-i18n="commentNameLabel">Nama</label>
+                    <input id="comment-name" name="name" type="text" maxlength="60" autocomplete="name" required
+                        placeholder="Nama kamu" data-i18n-attr="placeholder:commentNamePlaceholder">
+                </div>
+                <div class="comment-field">
+                    <label for="comment-text" data-i18n="commentTextLabel">Komentar</label>
+                    <textarea id="comment-text" name="comment" rows="4" maxlength="1000" required
+                        placeholder="Tulis komentarmu..." data-i18n-attr="placeholder:commentTextPlaceholder"></textarea>
+                </div>
+                <button class="button primary comment-submit" type="submit" data-i18n="commentSubmit">Kirim komentar</button>
+                <p class="comment-status" id="comment-status" role="status" aria-live="polite"></p>
+            </form>
+            <div class="comment-list-heading">
+                <h3 data-i18n="commentsListTitle">Komentar</h3>
+                <p><span id="comment-count">0</span> <span data-i18n="commentCountLabel">komentar</span></p>
+            </div>
+            <ul class="comment-list" id="comment-list" aria-live="polite">
+                <li class="comment-empty" data-i18n="commentsEmpty">Belum ada komentar. Jadilah yang pertama!</li>
+            </ul>
+        </section>
     </main>
 
     <div class="spider-girl" aria-hidden="true">
@@ -301,6 +332,7 @@
         <p>&copy; 2026 Tantri Pradipta Kusumawardani</p>
     </footer>
 
+    <script src="js/comments-config.js"></script>
     <script>
         const translations = {
             id: {
@@ -378,7 +410,23 @@
                 certificateGalleryAria: 'Galeri sertifikat, geser ke samping untuk melihat semua sertifikat',
                 contactEyebrow: 'Tersedia untuk Diskusi',
                 contactTitle: 'Ada project atau ide?',
-                contactLead: 'Terbuka untuk kolaborasi, peluang magang, diskusi teknologi, atau proyek yang membutuhkan analisis dan pengembangan solusi.'
+                contactLead: 'Terbuka untuk kolaborasi, peluang magang, diskusi teknologi, atau proyek yang membutuhkan analisis dan pengembangan solusi.',
+                commentsEyebrow: 'Buku Tamu',
+                commentsTitle: 'Tinggalkan komentar',
+                commentsDemoNotice: 'Komentar akan langsung terlihat oleh semua pengunjung.',
+                commentNameLabel: 'Nama',
+                commentNamePlaceholder: 'Nama kamu',
+                commentTextLabel: 'Komentar',
+                commentTextPlaceholder: 'Tulis komentarmu...',
+                commentSubmit: 'Kirim komentar',
+                commentStatus: 'Komentar berhasil dikirim.',
+                commentLoading: 'Memuat komentar...',
+                commentLoadError: 'Komentar gagal dimuat. Silakan coba muat ulang halaman.',
+                commentSendError: 'Komentar gagal dikirim. Silakan coba lagi.',
+                commentConfigError: 'Backend komentar belum dikonfigurasi.',
+                commentsListTitle: 'Komentar',
+                commentCountLabel: 'komentar',
+                commentsEmpty: 'Belum ada komentar. Jadilah yang pertama!'
             },
             en: {
                 navAria: 'Main navigation',
@@ -455,7 +503,23 @@
                 certificateGalleryAria: 'Certificate gallery, scroll sideways to see all certificates',
                 contactEyebrow: 'Available for Discussion',
                 contactTitle: 'Have a project or idea?',
-                contactLead: 'Open to collaboration, internship opportunities, technology discussions, or projects that need analysis and solution development.'
+                contactLead: 'Open to collaboration, internship opportunities, technology discussions, or projects that need analysis and solution development.',
+                commentsEyebrow: 'Guestbook',
+                commentsTitle: 'Leave a comment',
+                commentsDemoNotice: 'Comments will be visible to all visitors immediately.',
+                commentNameLabel: 'Name',
+                commentNamePlaceholder: 'Your name',
+                commentTextLabel: 'Comment',
+                commentTextPlaceholder: 'Write your comment...',
+                commentSubmit: 'Post comment',
+                commentStatus: 'Comment posted successfully.',
+                commentLoading: 'Loading comments...',
+                commentLoadError: 'Comments could not be loaded. Please reload the page.',
+                commentSendError: 'Comment could not be posted. Please try again.',
+                commentConfigError: 'The comments backend has not been configured.',
+                commentsListTitle: 'Comments',
+                commentCountLabel: 'comments',
+                commentsEmpty: 'No comments yet. Be the first!'
             }
         };
 
@@ -498,6 +562,115 @@
 
         applyLanguage(savedLanguage);
         applyTheme(savedTheme);
+
+        const commentForm = document.querySelector('#comment-form');
+        const commentList = document.querySelector('#comment-list');
+        const commentCount = document.querySelector('#comment-count');
+        const commentStatus = document.querySelector('#comment-status');
+        const commentSubmit = commentForm.querySelector('[type="submit"]');
+        const getCommentTranslations = () => translations[document.documentElement.lang] || translations.id;
+        const getCommentsConfig = () => window.COMMENTS_CONFIG || {};
+        const isCommentsConfigured = () => {
+            const { supabaseUrl, anonKey } = getCommentsConfig();
+            return Boolean(supabaseUrl && anonKey)
+                && !supabaseUrl.includes('YOUR_PROJECT_ID')
+                && !anonKey.includes('YOUR_');
+        };
+        const getCommentsEndpoint = () => {
+            const { supabaseUrl, anonKey } = getCommentsConfig();
+            if (!isCommentsConfigured()) throw new Error('Comments backend configuration is missing.');
+
+            return `${supabaseUrl.replace(/\/+$/, '')}/rest/v1/comments`;
+        };
+        const getSupabaseHeaders = () => ({
+            apikey: getCommentsConfig().anonKey,
+            'Content-Type': 'application/json'
+        });
+        const renderComments = (comments) => {
+            commentList.replaceChildren();
+            commentCount.textContent = String(comments.length);
+
+            if (comments.length === 0) {
+                const emptyMessage = document.createElement('li');
+                emptyMessage.className = 'comment-empty';
+                emptyMessage.textContent = getCommentTranslations().commentsEmpty;
+                commentList.append(emptyMessage);
+                return;
+            }
+
+            comments.forEach(({ name, comment }) => {
+                const item = document.createElement('li');
+                item.className = 'comment-item';
+                const author = document.createElement('strong');
+                author.textContent = name;
+                const text = document.createElement('p');
+                text.textContent = comment;
+                item.append(author, text);
+                commentList.append(item);
+            });
+        };
+
+        const loadComments = async () => {
+            commentStatus.textContent = getCommentTranslations().commentLoading;
+            try {
+                const endpoint = getCommentsEndpoint();
+                const response = await fetch(`${endpoint}?select=id,name,comment,created_at&order=created_at.desc&limit=100`, {
+                    headers: getSupabaseHeaders()
+                });
+                if (!response.ok) throw new Error(`Loading comments failed (${response.status}).`);
+
+                renderComments(await response.json());
+                commentStatus.textContent = '';
+            } catch (error) {
+                console.error('Unable to load comments:', error);
+                commentList.replaceChildren();
+                commentCount.textContent = '0';
+                commentStatus.textContent = !isCommentsConfigured()
+                    ? getCommentTranslations().commentConfigError
+                    : getCommentTranslations().commentLoadError;
+            }
+        };
+
+        commentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(commentForm);
+            const name = String(formData.get('name') || '').trim();
+            const comment = String(formData.get('comment') || '').trim();
+            if (!name || !comment) return;
+
+            commentSubmit.disabled = true;
+            commentStatus.textContent = '';
+            try {
+                const endpoint = getCommentsEndpoint();
+                const response = await fetch(`${endpoint}?select=id,name,comment,created_at`, {
+                    method: 'POST',
+                    headers: {
+                        ...getSupabaseHeaders(),
+                        Prefer: 'return=representation'
+                    },
+                    body: JSON.stringify({ name, comment })
+                });
+                if (!response.ok) throw new Error(`Posting comment failed (${response.status}).`);
+
+                const [newComment] = await response.json();
+                const existingComments = [...commentList.querySelectorAll('.comment-item')].map((item) => ({
+                    name: item.querySelector('strong').textContent,
+                    comment: item.querySelector('p').textContent
+                }));
+                renderComments([newComment, ...existingComments].slice(0, 100));
+                commentStatus.textContent = getCommentTranslations().commentStatus;
+                commentForm.reset();
+            } catch (error) {
+                console.error('Unable to post comment:', error);
+                commentStatus.textContent = !isCommentsConfigured()
+                    ? getCommentTranslations().commentConfigError
+                    : getCommentTranslations().commentSendError;
+            } finally {
+                commentSubmit.disabled = false;
+            }
+        });
+
+        loadComments();
 
         const closeCustomSelects = () => {
             document.querySelectorAll('.custom-select.is-open').forEach((select) => {
