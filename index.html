@@ -8,7 +8,7 @@
     <meta property="og:url" content="https://tantripradipta.my.id/">
     <meta property="og:title" content="Tantri Pradipta Kusumawardani - Portofolio">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css?v=20261025-2">
 </head>
 <body data-theme="baby-pink">
     <nav class="site-nav" aria-label="Navigasi utama" data-i18n-attr="aria-label:navAria">
@@ -285,6 +285,38 @@
                 </a>
             </div>
         </section>
+
+        <section class="section comments-section" id="komentar">
+            <div class="section-heading">
+                <p class="eyebrow"><span></span> <span data-i18n="commentsEyebrow">Buku Tamu</span></p>
+                <h2 data-i18n="commentsTitle">Tinggalkan komentar</h2>
+            </div>
+            <p class="comment-demo-notice" data-i18n="commentsDemoNotice">
+                Pratinjau saja: komentar hanya tampil di halaman ini dan tidak dibagikan kepada pengunjung lain.
+                Penyimpanan publik akan tersedia setelah backend dihubungkan.
+            </p>
+            <form class="comment-form" id="comment-form">
+                <div class="comment-field">
+                    <label for="comment-name" data-i18n="commentNameLabel">Nama</label>
+                    <input id="comment-name" name="name" type="text" maxlength="60" autocomplete="name" required
+                        placeholder="Nama kamu" data-i18n-attr="placeholder:commentNamePlaceholder">
+                </div>
+                <div class="comment-field">
+                    <label for="comment-text" data-i18n="commentTextLabel">Komentar</label>
+                    <textarea id="comment-text" name="comment" rows="4" maxlength="1000" required
+                        placeholder="Tulis komentarmu..." data-i18n-attr="placeholder:commentTextPlaceholder"></textarea>
+                </div>
+                <button class="button primary comment-submit" type="submit" data-i18n="commentSubmit">Kirim komentar</button>
+                <p class="comment-status" id="comment-status" role="status" aria-live="polite"></p>
+            </form>
+            <div class="comment-list-heading">
+                <h3 data-i18n="commentsListTitle">Komentar</h3>
+                <p><span id="comment-count">0</span> <span data-i18n="commentCountLabel">komentar</span></p>
+            </div>
+            <ul class="comment-list" id="comment-list" aria-live="polite">
+                <li class="comment-empty" data-i18n="commentsEmpty">Belum ada komentar. Jadilah yang pertama!</li>
+            </ul>
+        </section>
     </main>
 
     <div class="spider-girl" aria-hidden="true">
@@ -378,7 +410,19 @@
                 certificateGalleryAria: 'Galeri sertifikat, geser ke samping untuk melihat semua sertifikat',
                 contactEyebrow: 'Tersedia untuk Diskusi',
                 contactTitle: 'Ada project atau ide?',
-                contactLead: 'Terbuka untuk kolaborasi, peluang magang, diskusi teknologi, atau proyek yang membutuhkan analisis dan pengembangan solusi.'
+                contactLead: 'Terbuka untuk kolaborasi, peluang magang, diskusi teknologi, atau proyek yang membutuhkan analisis dan pengembangan solusi.',
+                commentsEyebrow: 'Buku Tamu',
+                commentsTitle: 'Tinggalkan komentar',
+                commentsDemoNotice: 'Pratinjau saja: komentar hanya tampil di halaman ini dan tidak dibagikan kepada pengunjung lain. Penyimpanan publik akan tersedia setelah backend dihubungkan.',
+                commentNameLabel: 'Nama',
+                commentNamePlaceholder: 'Nama kamu',
+                commentTextLabel: 'Komentar',
+                commentTextPlaceholder: 'Tulis komentarmu...',
+                commentSubmit: 'Kirim komentar',
+                commentStatus: 'Komentar ditambahkan ke pratinjau ini, tetapi belum dibagikan kepada pengunjung lain.',
+                commentsListTitle: 'Komentar',
+                commentCountLabel: 'komentar',
+                commentsEmpty: 'Belum ada komentar. Jadilah yang pertama!'
             },
             en: {
                 navAria: 'Main navigation',
@@ -455,7 +499,19 @@
                 certificateGalleryAria: 'Certificate gallery, scroll sideways to see all certificates',
                 contactEyebrow: 'Available for Discussion',
                 contactTitle: 'Have a project or idea?',
-                contactLead: 'Open to collaboration, internship opportunities, technology discussions, or projects that need analysis and solution development.'
+                contactLead: 'Open to collaboration, internship opportunities, technology discussions, or projects that need analysis and solution development.',
+                commentsEyebrow: 'Guestbook',
+                commentsTitle: 'Leave a comment',
+                commentsDemoNotice: 'Preview only: comments appear on this page and are not shared with other visitors. Public storage will be available after a backend is connected.',
+                commentNameLabel: 'Name',
+                commentNamePlaceholder: 'Your name',
+                commentTextLabel: 'Comment',
+                commentTextPlaceholder: 'Write your comment...',
+                commentSubmit: 'Post comment',
+                commentStatus: 'Comment added to this preview, but it has not been shared with other visitors.',
+                commentsListTitle: 'Comments',
+                commentCountLabel: 'comments',
+                commentsEmpty: 'No comments yet. Be the first!'
             }
         };
 
@@ -498,6 +554,37 @@
 
         applyLanguage(savedLanguage);
         applyTheme(savedTheme);
+
+        const commentForm = document.querySelector('#comment-form');
+        const commentList = document.querySelector('#comment-list');
+        const commentCount = document.querySelector('#comment-count');
+        const commentStatus = document.querySelector('#comment-status');
+        let visibleCommentCount = 0;
+
+        commentForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(commentForm);
+            const name = formData.get('name').trim();
+            const comment = formData.get('comment').trim();
+            if (!name || !comment) return;
+
+            const emptyMessage = commentList.querySelector('.comment-empty');
+            if (emptyMessage) emptyMessage.remove();
+
+            const item = document.createElement('li');
+            item.className = 'comment-item';
+            const author = document.createElement('strong');
+            author.textContent = name;
+            const text = document.createElement('p');
+            text.textContent = comment;
+            item.append(author, text);
+            commentList.append(item);
+
+            visibleCommentCount += 1;
+            commentCount.textContent = String(visibleCommentCount);
+            commentStatus.textContent = translations[document.documentElement.lang].commentStatus;
+            commentForm.reset();
+        });
 
         const closeCustomSelects = () => {
             document.querySelectorAll('.custom-select.is-open').forEach((select) => {
