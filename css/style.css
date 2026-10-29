@@ -1139,11 +1139,13 @@ footer {
         width: 100%;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
         gap: 6px;
     }
 
     .select-field {
         min-width: 0;
+        width: 100%;
         justify-content: space-between;
         gap: 4px;
         padding-inline: 8px;
@@ -1271,16 +1273,25 @@ footer {
 
 @media (max-width: 380px) {
     .nav-controls {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .select-field {
-        justify-content: flex-start;
-        gap: 12px;
+        justify-content: space-between;
+        gap: 3px;
+        padding-inline: 5px;
+        font-size: 0.56rem;
+        letter-spacing: 0.04em;
+    }
+
+    .select-trigger {
+        min-width: 55px;
+        gap: 4px;
+        padding-inline: 6px;
     }
 
     .custom-select[data-custom-select="theme"] .select-trigger {
-        min-width: 112px;
+        min-width: 76px;
     }
 
     .hero {
