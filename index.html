@@ -332,8 +332,32 @@
         <p>&copy; 2026 Tantri Pradipta Kusumawardani</p>
     </footer>
 
-    <script src="js/comments-config.js"></script>
-    <script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js';
+        import {
+            addDoc,
+            collection,
+            getDocs,
+            getFirestore,
+            limit,
+            orderBy,
+            query,
+            serverTimestamp
+        } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: 'AIzaSyDaDFTMPpI5WW3TYVOGE4idZ7iHubptpWg',
+            authDomain: 'tantripradipta-portofolio.firebaseapp.com',
+            projectId: 'tantripradipta-portofolio',
+            storageBucket: 'tantripradipta-portofolio.firebasestorage.app',
+            messagingSenderId: '813075477403',
+            appId: '1:813075477403:web:e7be5338c6a16bb007e73e',
+            measurementId: 'G-1B1G1644LB'
+        };
+        const firebaseApp = initializeApp(firebaseConfig);
+        const db = getFirestore(firebaseApp);
+        const commentsCollection = collection(db, 'comments');
+
         const translations = {
             id: {
                 navAria: 'Navigasi utama',
@@ -569,23 +593,6 @@
         const commentStatus = document.querySelector('#comment-status');
         const commentSubmit = commentForm.querySelector('[type="submit"]');
         const getCommentTranslations = () => translations[document.documentElement.lang] || translations.id;
-        const getCommentsConfig = () => window.COMMENTS_CONFIG || {};
-        const isCommentsConfigured = () => {
-            const { supabaseUrl, anonKey } = getCommentsConfig();
-            return Boolean(supabaseUrl && anonKey)
-                && !supabaseUrl.includes('YOUR_PROJECT_ID')
-                && !anonKey.includes('YOUR_');
-        };
-        const getCommentsEndpoint = () => {
-            const { supabaseUrl, anonKey } = getCommentsConfig();
-            if (!isCommentsConfigured()) throw new Error('Comments backend configuration is missing.');
-
-            return `${supabaseUrl.replace(/\/+$/, '')}/rest/v1/comments`;
-        };
-        const getSupabaseHeaders = () => ({
-            apikey: getCommentsConfig().anonKey,
-            'Content-Type': 'application/json'
-        });
         const renderComments = (comments) => {
             commentList.replaceChildren();
             commentCount.textContent = String(comments.length);
@@ -613,21 +620,15 @@
         const loadComments = async () => {
             commentStatus.textContent = getCommentTranslations().commentLoading;
             try {
-                const endpoint = getCommentsEndpoint();
-                const response = await fetch(`${endpoint}?select=id,name,comment,created_at&order=created_at.desc&limit=100`, {
-                    headers: getSupabaseHeaders()
-                });
-                if (!response.ok) throw new Error(`Loading comments failed (${response.status}).`);
-
-                renderComments(await response.json());
+                const commentsQuery = query(commentsCollection, orderBy('createdAt', 'desc'), limit(100));
+                const snapshot = await getDocs(commentsQuery);
+                renderComments(snapshot.docs.map((commentDoc) => commentDoc.data()));
                 commentStatus.textContent = '';
             } catch (error) {
                 console.error('Unable to load comments:', error);
                 commentList.replaceChildren();
                 commentCount.textContent = '0';
-                commentStatus.textContent = !isCommentsConfigured()
-                    ? getCommentTranslations().commentConfigError
-                    : getCommentTranslations().commentLoadError;
+                commentStatus.textContent = getCommentTranslations().commentLoadError;
             }
         };
 
@@ -641,30 +642,20 @@
             commentSubmit.disabled = true;
             commentStatus.textContent = '';
             try {
-                const endpoint = getCommentsEndpoint();
-                const response = await fetch(`${endpoint}?select=id,name,comment,created_at`, {
-                    method: 'POST',
-                    headers: {
-                        ...getSupabaseHeaders(),
-                        Prefer: 'return=representation'
-                    },
-                    body: JSON.stringify({ name, comment })
+                if (name.length > 60 || comment.length > 1000) {
+                    throw new Error('Name or comment is too long.');
+                }
+                await addDoc(commentsCollection, {
+                    name,
+                    comment,
+                    createdAt: serverTimestamp()
                 });
-                if (!response.ok) throw new Error(`Posting comment failed (${response.status}).`);
-
-                const [newComment] = await response.json();
-                const existingComments = [...commentList.querySelectorAll('.comment-item')].map((item) => ({
-                    name: item.querySelector('strong').textContent,
-                    comment: item.querySelector('p').textContent
-                }));
-                renderComments([newComment, ...existingComments].slice(0, 100));
+                await loadComments();
                 commentStatus.textContent = getCommentTranslations().commentStatus;
                 commentForm.reset();
             } catch (error) {
                 console.error('Unable to post comment:', error);
-                commentStatus.textContent = !isCommentsConfigured()
-                    ? getCommentTranslations().commentConfigError
-                    : getCommentTranslations().commentSendError;
+                commentStatus.textContent = getCommentTranslations().commentSendError;
             } finally {
                 commentSubmit.disabled = false;
             }
